@@ -187,5 +187,22 @@ class Memory {
     }
 }
 
+const audio = document.getElementById("backgroundAudio");
+const soundIcon = document.getElementById("sonido-audio");
+
+document.addEventListener("DOMContentLoaded", () => {
+    audio.play();
+    soundIcon.classList.add("bi-volume-up");
+});
+soundIcon.addEventListener("click", () => {
+    if (audio.paused) {
+        audio.play();
+        soundIcon.classList.replace("bi-volume-mute", "bi-volume-up");
+    } else {
+        audio.pause();
+        soundIcon.classList.replace("bi-volume-up", "bi-volume-mute");
+    }
+});
+
 
 var memory = new Memory("username", 3);
