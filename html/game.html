@@ -9,17 +9,17 @@
 </head>
 <body>
     <div id="title">
-        <h1>Memory</h1>
+        <h1>Memory Game</h1>
     </div>
     <main>
 
         <div id="game-data">
             <div>
-                <progress value="70" max="100" id="br-tiempo"></progress>
+                <progress value="100" max="100" id="br-tiempo"></progress>
             </div>
             <div>
                 <p>Sonido</p>
-                <i class="bi bi-volume-up"></i>
+                <i id="audio" class="bi bi-volume-up"></i>
             </div>
             <div>
                 <p>Reiniciar</p>
@@ -38,6 +38,11 @@
         <div id="game-container">
 
         </div>
+
+        <audio id="backgroundAudio" loop>
+            <source src="" type="audio/mpeg">
+            Tu navegador no soporta el audio.
+        </audio>
     </main>
     <script src="../js/script.js"></script>
 </body>
