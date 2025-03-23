@@ -9,18 +9,25 @@ class Carta {
     constructor(id, frente) {
         this.id = id;
         this.i = 0;
-        this.oculto = false;
+        this.oculto = true;
         this.valor = frente;
         this.frente = frente;
         this.dorsal = "❔";
         this.document;
+        this.encontrada = false;
+    }
+    getEncontrada() {
+        return this.encontrada;
+    }
+    setEncontrada(valor) {
+        this.encontrada = valor;
     }
     setDocument(document) {
         this.document = document;
     }
     obtenerIcons() {
         id = banderas[i];
-        i++
+        i++;
     }
     getId() {
         return this.id;
@@ -39,6 +46,7 @@ class Carta {
             this.frente = this.valor;
         }
         this.document.innerHTML = `<p class="frente"> ${this.frente} </p>`;
+        
     }
 
 }
@@ -140,7 +148,6 @@ class Memory {
         let carta = document.createElement("div");
         carta.className = "carta";
         carta.addEventListener("click", ()=> {
-            this.matriz[i][j].voltear();
             this.verficarIguales(this.matriz[i][j]);
         });
         let frente = document.createElement("p");
@@ -157,28 +164,41 @@ class Memory {
     }
     mostrarMatriz() {
         for (let i = 0; i < this.filas; i++) {
-            let fila = document.createElement("div");
-            fila.className = "fila";
             for (let j = 0; j < this.columnas; j++) {
                 
                 let carta = this.createCarta(i, j);
-                fila.appendChild(carta);  
+                this.documento.appendChild(carta); 
     
             }
-            this.documento.appendChild(fila);
         }
     }
     verficarIguales(cartaNueva) {
+        
+        if (this.hayVolteada && this.cartaVolteada.getId() == cartaNueva.getId()) {
+            return;
+        }
+        if (cartaNueva.getEncontrada()) {
+            return;
+        }
+        cartaNueva.voltear();
+
         if (this.hayVolteada) {
             if (cartaNueva.getValor() == this.cartaVolteada.getValor()) {
-                // iguales 
+                
+                cartaNueva.setEncontrada(true);
+                this.cartaVolteada.setEncontrada(true);
+                this.hayVolteada = false;
                 return;
             } else {
                 // dif
-                
-                cartaNueva.voltear();
-                this.cartaVolteada.voltear();
+                let carta1 = this.cartaVolteada;
+                let carta2 = cartaNueva;
                 this.hayVolteada = false;
+
+                setTimeout(() => {
+                    carta1.voltear();
+                    carta2.voltear();
+                }, 500);
             }
         } else {
             this.hayVolteada = true;
@@ -188,4 +208,4 @@ class Memory {
 }
 
 
-var memory = new Memory("username", 3);
+var memory = new Memory("username", 1);
