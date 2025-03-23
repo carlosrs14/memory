@@ -1,0 +1,67 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: cadetblue;
+}
+
+#menu {
+    background-color: aqua;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+
+    width: 50%;
+    max-width: 700px;
+    height: 70%;
+    max-height: 700px;
+    border-radius: 12px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+    padding: 0;
+    margin: 0;
+}
+
+#btn-jugar {
+    width: 25%;
+    max-width: 100px;
+}
+
+#select {
+    outline: none;
+    width: 25%;
+    max-width: 100px;
+}
+
+#btn-jugar a {
+    text-decoration: none;
+    color: black;
+}
+
+#txt-name {
+    background-color: whitesmoke;
+    height: 25px;
+    width: 50%;
+    max-width: 250px;
+    border: none;
+    outline: none;
+}
+
+
+footer {
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+}
