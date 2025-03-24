@@ -41,6 +41,7 @@ h1 {
     border-radius: 12px;
     background-color: #b3e5fc;
     transition: transform 0.3s ease; 
+    border: none;
 }
 
 #btn-jugar a {
@@ -58,6 +59,7 @@ h1 {
     max-width: 250px;
     border-radius: 12px;
     outline: none;
+    border: none;
 }
 
 

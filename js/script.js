@@ -4,6 +4,7 @@
 // 3 difícil, tiempo 30,      15 pares,   6*5
 var dificultad = 3;
 var banderas = ["🇲🇽","🇧🇷", "🇨🇴", "🇦🇷", "🇦🇽", "🇦🇲", "🇨🇦", "🇨🇳", "🇨🇱", "🇩🇰", "🇬🇹", "🇫🇷", "🇮🇳", "🇯🇵", "🇯🇲"]
+var intentos;
 
 class Carta {
     constructor(id, frente) {
@@ -68,6 +69,7 @@ class Memory {
         this.setAtributtes();
         this.paresEncontrados = 0;
         this.pares = this.filas * this.columnas / 2;
+        this.intentos = 0;
         this.llenarMatriz();
         this.mostrarMatriz();
         this.startGame();
@@ -183,6 +185,8 @@ class Memory {
         cartaNueva.voltear();
 
         if (this.hayVolteada) {
+            this.intentos++;
+            document.getElementById("contador-intentos").innerText = `Intentos: ${this.intentos}`;
             if (cartaNueva.getValor() === this.cartaVolteada.getValor()) {
                 cartaNueva.setEncontrada(true);
                 this.cartaVolteada.setEncontrada(true);
