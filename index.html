@@ -24,4 +24,20 @@
         <p>Copyrigth. Todos los derechos reservados</p>
     </footer>
 </body>
+<script>
+    document.getElementById("btn-jugar").addEventListener("click", function() {
+        let username = document.getElementById("txt-name").value;
+        let dificultad = document.getElementById("select-dificultad").value;
+
+        if (username.trim() === "") {
+            alert("Por favor, ingrese un username.");
+            return;
+        }
+
+        localStorage.setItem("username", username);
+        localStorage.setItem("dificultad", dificultad);
+
+        window.location.href = "./html/game.html";
+    });
+</script>
 </html>

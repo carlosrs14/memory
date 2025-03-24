@@ -62,31 +62,12 @@ main {
     height: 80%;
     width: 100%;
     background-color: #e1ecd6;
-    display: grid; /* Convierte el contenedor en una cuadrícula */
-    grid-template-columns: repeat(4, 1fr); /* 4 columnas del mismo tamaño */
-    grid-template-rows: repeat(3, auto);   /* 3 filas ajustadas al contenido */
-    gap: 10px; /* Espaciado entre elementos */
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(5, auto);
+    gap: 10px;
     justify-content: center;
     align-items: center;
-}
-
-
-.carta {
-    width: 100px;
-    height: 150px;
-    background-color: #aee1d3;
-    border-radius: 12px;
-    cursor: pointer;
-    justify-self: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.frente {
-    font-size: 60px;
-    margin: 0;
-    padding: 0;
 }
 
 .modal-overlay {
@@ -119,4 +100,51 @@ main {
 }
 .modal-content button:hover {
     background: #E63946;
+}
+
+.carta {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+    
+    cursor: pointer;
+    position: relative;
+    perspective: 1000px; /* Efecto 3D */
+
+    background-color: #aee1d3;
+    border-radius: 12px;
+}
+
+.carta .contenido {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
+}
+
+.carta .frente, .carta .dorsal {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* Oculta la parte trasera */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    border: 2px solid #000;
+    border-radius: 8px;
+    background: white;
+}
+
+.carta .dorsal {
+    background: lightgray;
+    transform: rotateY(180deg); /* Volteado inicialmente */
+}
+
+.carta.volteada .contenido {
+    transform: rotateY(180deg);
 }

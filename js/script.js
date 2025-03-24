@@ -4,12 +4,10 @@
 // 3 difícil, tiempo 30,      15 pares,   6*5
 var dificultad = 3;
 var banderas = ["🇲🇽","🇧🇷", "🇨🇴", "🇦🇷", "🇦🇽", "🇦🇲", "🇨🇦", "🇨🇳", "🇨🇱", "🇩🇰", "🇬🇹", "🇫🇷", "🇮🇳", "🇯🇵", "🇯🇲"]
-var intentos;
 
 class Carta {
     constructor(id, frente) {
         this.id = id;
-        this.i = 0;
         this.oculto = true;
         this.valor = frente;
         this.frente = frente;
@@ -26,10 +24,6 @@ class Carta {
     setDocument(document) {
         this.document = document;
     }
-    obtenerIcons() {
-        id = banderas[i];
-        i++;
-    }
     getId() {
         return this.id;
     }
@@ -41,15 +35,16 @@ class Carta {
     }
     voltear() {
         this.oculto = !this.oculto;
-        if (this.oculto) {
-            this.frente = "❔";
-        } else {
-            this.frente = this.valor;
-        }
-        this.document.innerHTML = `<p class="frente"> ${this.frente} </p>`;
         
+        this.document.classList.toggle("volteada");
+        let frenteElement = this.document.querySelector(".frente");
+    
+        if (this.oculto) {
+            frenteElement.innerHTML = "❔";
+        } else {
+            frenteElement.innerHTML = this.valor;
+        }
     }
-
 }
 
 
@@ -155,15 +150,22 @@ class Memory {
         carta.addEventListener("click", () => {
             this.verficarIguales(this.matriz[i][j]);
         });
-        let frente = document.createElement("p");
+        let contenido = document.createElement("div");
+        contenido.className = "contenido";
 
-        frente.innerHTML  = "❔";
-        frente.id = `fila${i}-columna${j}`;
-
+        let frente = document.createElement("div");
         frente.className = "frente";
+        frente.innerHTML = "❔";
+
+        let dorsal = document.createElement("div");
+        dorsal.className = "dorsal";
+        dorsal.innerHTML = this.matriz[i][j].getValor();
+
+        contenido.appendChild(frente);
+        contenido.appendChild(dorsal);
+        carta.appendChild(contenido);
         
         this.matriz[i][j].setDocument(carta);
-        carta.appendChild(frente);
         return carta;
 
     }
@@ -243,5 +245,25 @@ soundIcon.addEventListener("click", () => {
     }
 });
 
+var dificultades = {"facil": 1, "medio": 2, "dificil": 3};
+var dificultadElegida = dificultades[localStorage.getItem("dificultad")];
+const contenedor = document.getElementById("game-container");
+switch (dificultadElegida) {
+    case 1:
+        contenedor.style["gridTemplateColumns"] = "repeat(4, 1fr)";
+        contenedor.style["gridTemplateRows"] = "repeat(3, auto)";
+        break;
+    
+    case 2:
+        contenedor.style["gridTemplateColumns"] = "repeat(5, 1fr)";
+        contenedor.style["gridTemplateRows"] = "repeat(4, auto)";
+        break;
+    case 3:
+        contenedor.style["gridTemplateColumns"] = "repeat(6, 1fr)";
+        contenedor.style["gridTemplateRows"] = "repeat(5, auto)";
+        break;
+    default:
+        break;
+}
 
-var memory = new Memory("username", 1);
+var memory = new Memory("username", dificultadElegida);
