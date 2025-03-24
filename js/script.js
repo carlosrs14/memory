@@ -66,6 +66,7 @@ class Memory {
         this.cartaVolteada;
         this.matriz = [];
         this.setAtributtes();
+        this.paresEncontrados = 0;
         this.pares = this.filas * this.columnas / 2;
         this.llenarMatriz();
         this.mostrarMatriz();
@@ -80,8 +81,10 @@ class Memory {
         let valor = Math.floor(this.tiempo * 100 / this.tiempoTotal);
         document.getElementById("br-tiempo").value = valor;
         this.tiempo--;
-        if (this.tiempo == 0) {
-            // auqí perdió y hay que hacer varias cosas
+        if (this.tiempo === 0) {
+            clearInterval(this.timer);
+            this.mostrarMensaje("¡Perdiste!", "Inténtalo de nuevo.", "#E63946");
+        
         }
     }
 
@@ -147,7 +150,7 @@ class Memory {
     createCarta(i, j) {
         let carta = document.createElement("div");
         carta.className = "carta";
-        carta.addEventListener("click", ()=> {
+        carta.addEventListener("click", () => {
             this.verficarIguales(this.matriz[i][j]);
         });
         let frente = document.createElement("p");
@@ -174,23 +177,23 @@ class Memory {
     }
     verficarIguales(cartaNueva) {
         
-        if (this.hayVolteada && this.cartaVolteada.getId() == cartaNueva.getId()) {
-            return;
-        }
-        if (cartaNueva.getEncontrada()) {
-            return;
-        }
+        if (this.hayVolteada && this.cartaVolteada.getId() == cartaNueva.getId()) return;
+        if (cartaNueva.getEncontrada()) return;
+
         cartaNueva.voltear();
 
         if (this.hayVolteada) {
-            if (cartaNueva.getValor() == this.cartaVolteada.getValor()) {
-                
+            if (cartaNueva.getValor() === this.cartaVolteada.getValor()) {
                 cartaNueva.setEncontrada(true);
                 this.cartaVolteada.setEncontrada(true);
                 this.hayVolteada = false;
+                this.paresEncontrados++;
+                if (this.paresEncontrados === this.pares) {
+                    clearInterval(this.timer);
+                    this.mostrarMensaje("¡Ganaste!", "Has encontrado todos los pares.", "#2ECC71");
+                }
                 return;
             } else {
-                // dif
                 let carta1 = this.cartaVolteada;
                 let carta2 = cartaNueva;
                 this.hayVolteada = false;
@@ -204,6 +207,18 @@ class Memory {
             this.hayVolteada = true;
             this.cartaVolteada = cartaNueva;
         }
+    }
+    mostrarMensaje(titulo, mensaje, color) {
+        let modal = document.createElement("div");
+        modal.className = "modal-overlay";
+        modal.innerHTML = `
+            <div class="modal-content" style="border-color: ${color}">
+                <h2 style="color: ${color}">${titulo}</h2>
+                <p>${mensaje}</p>
+                <button onclick="location.reload()">Reiniciar</button>
+            </div>
+        `;
+        document.body.appendChild(modal);
     }
 }
 
