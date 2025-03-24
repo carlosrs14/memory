@@ -3,7 +3,7 @@
 // 2 medio,   tiempo 60,      10 pares,   5*4 
 // 3 difícil, tiempo 30,      15 pares,   6*5
 var dificultad = 3;
-var banderas = ["🦋","🦀", "🦍", "🐋", "🦆", "🐫", "🐞", "🐌", "🐢", "🐘", "🐖", "🦥", "🐓", "🐈", "🦜"];
+var banderas = ["🦋","🦀", "🦍", "🐋", "🦆", "🦓", "🐞", "🐌", "🐢", "🐘", "🐖", "🦥", "🐓", "🐈", "🦜"];
 
 class Carta {
     constructor(id, frente) {
@@ -193,7 +193,7 @@ class Memory {
                 this.paresEncontrados++;
                 if (this.paresEncontrados === this.pares) {
                     clearInterval(this.timer);
-                    this.mostrarMensaje("¡Ganaste!", "Has encontrado todos los pares.", "#2ECC71");
+                    this.mostrarMensaje("¡Ganaste!", "Has encontrado todos los pares en " + this.intentos + " intentos.", "#2ECC71");
                 }
                 return;
             } else {
