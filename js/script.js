@@ -101,8 +101,8 @@ class Memory {
 
                 break;
             case 3:
-                this.filas = 5;
-                this.columnas = 6;
+                this.filas = 4;
+                this.columnas = 5;
                 this.tiempo = 30;
                 this.tiempoTotal = 30;
 
@@ -259,8 +259,8 @@ switch (dificultadElegida) {
         contenedor.style["gridTemplateRows"] = "repeat(4, auto)";
         break;
     case 3:
-        contenedor.style["gridTemplateColumns"] = "repeat(6, 1fr)";
-        contenedor.style["gridTemplateRows"] = "repeat(5, auto)";
+        contenedor.style["gridTemplateColumns"] = "repeat(5, 1fr)";
+        contenedor.style["gridTemplateRows"] = "repeat(4, auto)";
         break;
     default:
         break;
